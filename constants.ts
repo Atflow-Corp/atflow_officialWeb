@@ -45,7 +45,7 @@ export const PRODUCTS: ProductInfo[] = [
         longDesc: "Built on the principles of CBT and ACT, Purple Whale offers more than just meditation. It intelligently adapts to your long-term stress patterns, providing evidence-based tools to help you regain balance and focus. A digital therapeutic companion for Somatic Symptom Disorder. We integrated CBT, ACT, and MBSR protocols to help users manage physical distress caused by psychological factors, currently undergoing clinical trials.",
         tags: ["Meditation", "CBT", "ACT", "Mind-body Care"],
         iconColor: "linear-gradient(135deg, #a855f7, #6366f1)",
-        screenshots: ["https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=600"],
+        screenshots: ["img/mock_pw.png"],
         appStoreLink: "https://apps.apple.com/kr/app/%ED%8D%BC%ED%94%8C%EC%9B%A8%EC%9D%BC-purple-whale/id6478949979",
         playStoreLink: "https://play.google.com/store/apps/details?id=com.purplewhale"
     },
@@ -56,7 +56,7 @@ export const PRODUCTS: ProductInfo[] = [
         longDesc: "A specialized SaaS solution for clinical data collection. It optimizes the complex workflow of medical surveys and case report forms (CRF), enabling researchers to focus on insights rather than administration.",
         tags: ["B2B", "Survey Automation", "Clinical"],
         iconColor: "linear-gradient(135deg, #3b82f6, #2dd4bf)",
-        screenshots: ["https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600"],
+        screenshots: ["img/mock_research.png"],
         appStoreLink: "https://researchflow.kr/"
     }
 ];

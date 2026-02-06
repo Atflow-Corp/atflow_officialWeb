@@ -215,7 +215,9 @@ function App() {
                             <div className="modal-desc-section">
                                 <p className="long-desc">{selectedProduct.longDesc}</p>
                                 <div className="store-links">
-                                    <a href={selectedProduct.appStoreLink} className="store-btn app-store">App Store</a>
+                                    <a href={selectedProduct.appStoreLink} className="store-btn app-store">
+                                        {selectedProduct.id === 'research-flow' ? 'Visit Website' : 'App Store'}
+                                    </a>
                                     {selectedProduct.playStoreLink && (
                                         <a href={selectedProduct.playStoreLink} className="store-btn play-store">Play Store</a>
                                     )}
