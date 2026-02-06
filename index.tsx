@@ -63,6 +63,7 @@ function App() {
         // TODO: Replace these with your actual EmailJS keys
         const serviceID = 'service_h91lvg2';
         const templateID = 'template_55egulp';
+        const autoReplyTemplateID = 'template_7dytys5';
         const publicKey = 'jDvUMa8qiY1gQsviu';
 
         const templateParams = {
@@ -71,12 +72,24 @@ function App() {
             message: contactForm.message,
         };
 
+        const autoReplyParams = {
+            to_name: contactForm.name,
+            to_email: contactForm.email,
+            message: contactForm.message,
+        };
+
+        // Send Notification to Admin
         emailjs.send(serviceID, templateID, templateParams, publicKey)
+            .then(() => {
+                // Send Auto-reply to User
+                return emailjs.send(serviceID, autoReplyTemplateID, autoReplyParams, publicKey);
+            })
             .then(() => {
                 setEmailStatus('success');
                 setContactForm({ name: '', email: '', message: '' });
                 alert('Message sent successfully!');
-            }, (error) => {
+            })
+            .catch((error) => {
                 console.error('FAILED...', error);
                 setEmailStatus('error');
                 if (error.text?.includes("The user ID you provided is incorrect")) {
