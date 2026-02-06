@@ -76,7 +76,7 @@ export const PORTFOLIO_DATA = [
   },
   {
     title: "Cancer Survivors Recovery Support",
-    client: "Yonsei Cancer Center (Co-developed)",
+    client: "Yonsei University Department of Psychiatry (Co-developed)",
     description: "Digitalizing the post-surgery journey for cancer survivors. We designed a system and recovery guides to support the mental wellness of patients returning to daily life after surgery.",
     tags: ["Post-op Care", "Mental Wellness", "Digital Therapeutics"]
   },
