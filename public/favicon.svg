@@ -1,0 +1,11 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2dd4bf;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- W shape formed by connected squares/rectangles -->
+  <path d="M80 80 L160 80 L160 360 L220 360 L220 200 L300 200 L300 360 L360 360 L360 80 L440 80 L440 432 L280 432 L280 270 L240 270 L240 432 L80 432 Z" 
+        fill="url(#brandGradient)" />
+</svg>
