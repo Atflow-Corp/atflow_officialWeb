@@ -538,6 +538,11 @@ a:hover {
 .portfolio-card {
     min-width: 380px;
     max-width: 380px;
+
+    @media (max-width: 768px) {
+        min-width: 85vw;
+        max-width: 85vw;
+    }
     background: var(--glass-bg);
     border: 1px solid var(--border-color);
     border-radius: 32px;

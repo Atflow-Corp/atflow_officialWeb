@@ -16,7 +16,12 @@ interface Point {
   originY: number;
 }
 
-export default function NeuralMesh() {
+interface NeuralMeshProps {
+  pointCount?: number;
+  connectionDistance?: number;
+}
+
+export default function NeuralMesh({ pointCount = 65, connectionDistance = 220 }: NeuralMeshProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mouseRef = useRef({ x: -1000, y: -1000 });
@@ -31,8 +36,7 @@ export default function NeuralMesh() {
 
     let animationFrameId: number;
     let points: Point[] = [];
-    const pointCount = 65; 
-    const connectionDistance = 220;
+    // pointCount and connectionDistance are now props
     const mouseInfluence = 300;
 
     const resize = () => {
@@ -81,9 +85,9 @@ export default function NeuralMesh() {
       // Update points
       points.forEach((p) => {
         // Smooth, fluid motion using sine waves for a "living" feel
-        const driftX = Math.sin(timestamp * 0.2 + p.pulseOffset) * 0.2;
-        const driftY = Math.cos(timestamp * 0.2 + p.pulseOffset) * 0.2;
-        
+        const driftX = Math.sin(timestamp * 0.05 + p.pulseOffset) * 0.2;
+        const driftY = Math.cos(timestamp * 0.05 + p.pulseOffset) * 0.2;
+
         p.x += p.vx + driftX;
         p.y += p.vy + driftY;
 
@@ -91,11 +95,11 @@ export default function NeuralMesh() {
         const dxMouse = mouseRef.current.x - p.x;
         const dyMouse = mouseRef.current.y - p.y;
         const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
-        
+
         if (distMouse < mouseInfluence) {
-            const force = (1 - distMouse / mouseInfluence) * 0.08;
-            p.vx += dxMouse * force * 0.05;
-            p.vy += dyMouse * force * 0.05;
+          const force = (1 - distMouse / mouseInfluence) * 0.08;
+          p.vx += dxMouse * force * 0.05;
+          p.vy += dyMouse * force * 0.05;
         }
 
         // Apply friction for smoothness
@@ -107,7 +111,7 @@ export default function NeuralMesh() {
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
         // Draw node
-        const pulse = Math.sin(timestamp * 0.6 + p.pulseOffset) * 0.5 + 0.5;
+        const pulse = Math.sin(timestamp * 0.2 + p.pulseOffset) * 0.5 + 0.5;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size + (pulse * 0.8), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(45, 212, 191, ${0.3 + pulse * 0.4})`;
@@ -125,22 +129,22 @@ export default function NeuralMesh() {
 
           if (dist < connectionDistance) {
             const opacity = (1 - dist / connectionDistance) * 0.35;
-            
+
             // Calculate a control point for the curve (Midpoint + offset)
             // The offset creates the "wave" look
             const midX = (p.x + p2.x) / 2;
             const midY = (p.y + p2.y) / 2;
-            
+
             // Perpendicular vector for the wave offset
             const nx = -(p2.y - p.y);
             const ny = p2.x - p.x;
             const nLen = Math.sqrt(nx * nx + ny * ny);
-            
+
             // Wave frequency and amplitude
-            const waveFreq = 0.3;
+            const waveFreq = 0.1;
             const waveAmp = Math.min(dist * 0.2, 30);
             const waveOffset = Math.sin(timestamp * waveFreq + (i + j) * 0.5) * waveAmp;
-            
+
             const cpX = midX + (nx / nLen) * waveOffset;
             const cpY = midY + (ny / nLen) * waveOffset;
 
@@ -154,17 +158,17 @@ export default function NeuralMesh() {
 
             // Energy Pulse along the curve
             if (dist < connectionDistance * 0.7) {
-                const flowProgress = (timestamp * 0.3 + (i * 0.2)) % 1;
-                
-                // Quadratic Bezier interpolation for the pulse
-                const invT = 1 - flowProgress;
-                const pulseX = invT * invT * p.x + 2 * invT * flowProgress * cpX + flowProgress * flowProgress * p2.x;
-                const pulseY = invT * invT * p.y + 2 * invT * flowProgress * cpY + flowProgress * flowProgress * p2.y;
-                
-                ctx.beginPath();
-                ctx.arc(pulseX, pulseY, 1.4, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 2.5})`;
-                ctx.fill();
+              const flowProgress = (timestamp * 0.1 + (i * 0.2)) % 1;
+
+              // Quadratic Bezier interpolation for the pulse
+              const invT = 1 - flowProgress;
+              const pulseX = invT * invT * p.x + 2 * invT * flowProgress * cpX + flowProgress * flowProgress * p2.x;
+              const pulseY = invT * invT * p.y + 2 * invT * flowProgress * cpY + flowProgress * flowProgress * p2.y;
+
+              ctx.beginPath();
+              ctx.arc(pulseX, pulseY, 1.4, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(255, 255, 255, ${opacity * 2.5})`;
+              ctx.fill();
             }
           }
         }
@@ -176,13 +180,13 @@ export default function NeuralMesh() {
         const dy = mouseRef.current.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < mouseInfluence * 0.6) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(mouseRef.current.x, mouseRef.current.y);
-            const opacity = (1 - dist / (mouseInfluence * 0.6)) * 0.12;
-            ctx.strokeStyle = `rgba(45, 212, 191, ${opacity})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouseRef.current.x, mouseRef.current.y);
+          const opacity = (1 - dist / (mouseInfluence * 0.6)) * 0.12;
+          ctx.strokeStyle = `rgba(45, 212, 191, ${opacity})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
         }
       });
 
@@ -192,7 +196,7 @@ export default function NeuralMesh() {
     window.addEventListener('mousemove', handleMouseMove);
     const ro = new ResizeObserver(resize);
     ro.observe(container);
-    
+
     resize();
     animationFrameId = requestAnimationFrame(draw);
 
@@ -201,7 +205,7 @@ export default function NeuralMesh() {
       window.removeEventListener('mousemove', handleMouseMove);
       ro.disconnect();
     };
-  }, []);
+  }, [pointCount, connectionDistance]);
 
   return (
     <div ref={containerRef} style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0, opacity: 0.85 }}>

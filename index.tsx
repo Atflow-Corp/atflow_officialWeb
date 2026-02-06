@@ -11,6 +11,7 @@ import ReactDOM from 'react-dom/client';
 import { Artifact, Session } from './types';
 import { INITIAL_PLACEHOLDERS, PORTFOLIO_DATA, CAREER_DATA, PRODUCTS, ProductInfo } from './constants';
 import { generateId } from './utils';
+import emailjs from '@emailjs/browser';
 
 import DottedGlowBackground from './components/DottedGlowBackground';
 import NeuralMesh from './components/NeuralMesh';
@@ -42,6 +43,52 @@ function App() {
         persona: 'Adult General',
         aesthetic: 'Calm & Minimal'
     });
+
+    // Contact Form State
+    const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+    const [emailStatus, setEmailStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+    const handleContactChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setContactForm({ ...contactForm, [e.target.name]: e.target.value });
+    };
+
+    const sendEmail = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!contactForm.name || !contactForm.email || !contactForm.message) {
+            alert('Please fill in all fields.');
+            return;
+        }
+        setEmailStatus('sending');
+
+        // TODO: Replace these with your actual EmailJS keys
+        const serviceID = 'service_h91lvg2';
+        const templateID = 'template_55egulp';
+        const publicKey = 'jDvUMa8qiY1gQsviu';
+
+        const templateParams = {
+            from_name: contactForm.name,
+            from_email: contactForm.email,
+            message: contactForm.message,
+        };
+
+        emailjs.send(serviceID, templateID, templateParams, publicKey)
+            .then(() => {
+                setEmailStatus('success');
+                setContactForm({ name: '', email: '', message: '' });
+                alert('Message sent successfully!');
+            }, (error) => {
+                console.error('FAILED...', error);
+                setEmailStatus('error');
+                if (error.text?.includes("The user ID you provided is incorrect")) {
+                    alert('Email functionality is not configured yet. Please update the EmailJS keys in the code.');
+                } else {
+                    alert('Failed to send message. Please try again.');
+                }
+            })
+            .finally(() => {
+                setTimeout(() => setEmailStatus('idle'), 3000);
+            });
+    };
 
     const [drawerState, setDrawerState] = useState<{
         isOpen: boolean;
@@ -365,21 +412,44 @@ function App() {
                                     </div>
                                 </div>
                                 <div className="contact-form glass-panel highlight-border">
-                                    <div className="form-group">
-                                        <label>Full Name</label>
-                                        <input type="text" placeholder="Your name" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Email Address</label>
-                                        <input type="email" placeholder="email@example.com" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Message</label>
-                                        <textarea placeholder="How can we help?" rows={4}></textarea>
-                                    </div>
-                                    <button className="submit-btn" onClick={() => alert('Message sent!')}>
-                                        Send Message
-                                    </button>
+                                    <form onSubmit={sendEmail}>
+                                        <div className="form-group">
+                                            <label>Full Name</label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                placeholder="Your name"
+                                                value={contactForm.name}
+                                                onChange={handleContactChange}
+                                                disabled={emailStatus === 'sending'}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Email Address</label>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                placeholder="email@example.com"
+                                                value={contactForm.email}
+                                                onChange={handleContactChange}
+                                                disabled={emailStatus === 'sending'}
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Message</label>
+                                            <textarea
+                                                name="message"
+                                                placeholder="How can we help?"
+                                                rows={4}
+                                                value={contactForm.message}
+                                                onChange={handleContactChange}
+                                                disabled={emailStatus === 'sending'}
+                                            ></textarea>
+                                        </div>
+                                        <button className="submit-btn" type="submit" disabled={emailStatus === 'sending'}>
+                                            {emailStatus === 'sending' ? 'Sending...' : 'Send Message'}
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </section>
@@ -389,7 +459,7 @@ function App() {
                 {view === 'about' && (
                     <div className="about-page">
                         <section className="section-container hero-section" style={{ minHeight: '50vh' }}>
-                            <NeuralMesh />
+                            <NeuralMesh pointCount={30} />
                             <div className="atflow-hero">
                                 <h1 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)' }}>About atflow</h1>
                                 <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>Bridging technology and care through digital innovation.</p>
