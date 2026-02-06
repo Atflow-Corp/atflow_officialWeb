@@ -52,12 +52,45 @@ function App() {
   }>({ isOpen: false, mode: null, title: '', data: null });
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const portfolioTrackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
       const interval = setInterval(() => {
           setPlaceholderIndex(prev => (prev + 1) % INITIAL_PLACEHOLDERS.length);
       }, 3000);
       return () => clearInterval(interval);
+  }, []);
+
+  // Portfolio scroll control
+  useEffect(() => {
+      const trackWrapper = portfolioTrackRef.current?.parentElement;
+      if (!trackWrapper) return;
+
+      let scrollTimeout: NodeJS.Timeout;
+      const handleScroll = () => {
+          const track = portfolioTrackRef.current;
+          if (!track) return;
+          
+          // Stop animation when user scrolls
+          track.style.animationPlayState = 'paused';
+          
+          // Resume animation after scroll stops
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+              if (track) {
+                  track.style.animationPlayState = 'running';
+              }
+          }, 1500);
+      };
+
+      trackWrapper.addEventListener('scroll', handleScroll);
+      trackWrapper.addEventListener('wheel', handleScroll);
+
+      return () => {
+          trackWrapper.removeEventListener('scroll', handleScroll);
+          trackWrapper.removeEventListener('wheel', handleScroll);
+          clearTimeout(scrollTimeout);
+      };
   }, []);
 
   const handleSendMessage = useCallback(async (manualPrompt?: string) => {
@@ -207,7 +240,7 @@ function App() {
                 gap={30} radius={1.2} 
                 color="rgba(168, 85, 247, 0.05)" 
                 glowColor="rgba(45, 212, 191, 0.2)" 
-                speedScale={0.3} 
+                speedScale={0.1} 
             />
 
             {view === 'home' && (
@@ -265,8 +298,8 @@ function App() {
                             <p className="section-subtitle">Co-working with industry leaders to deliver professional healthcare solutions.</p>
                         </div>
                         <div className="portfolio-track-wrapper">
-                            <div className="portfolio-track">
-                                {[...PORTFOLIO_DATA, ...PORTFOLIO_DATA].map((item, idx) => (
+                            <div className="portfolio-track" ref={portfolioTrackRef}>
+                                {[...PORTFOLIO_DATA, ...PORTFOLIO_DATA, ...PORTFOLIO_DATA].map((item, idx) => (
                                     <div key={idx} className="portfolio-card">
                                         <span className="client-name">{item.client}</span>
                                         <h3>{item.title}</h3>

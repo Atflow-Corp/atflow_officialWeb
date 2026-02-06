@@ -81,8 +81,8 @@ export default function NeuralMesh() {
       // Update points
       points.forEach((p) => {
         // Smooth, fluid motion using sine waves for a "living" feel
-        const driftX = Math.sin(timestamp * 0.5 + p.pulseOffset) * 0.2;
-        const driftY = Math.cos(timestamp * 0.5 + p.pulseOffset) * 0.2;
+        const driftX = Math.sin(timestamp * 0.2 + p.pulseOffset) * 0.2;
+        const driftY = Math.cos(timestamp * 0.2 + p.pulseOffset) * 0.2;
         
         p.x += p.vx + driftX;
         p.y += p.vy + driftY;
@@ -107,7 +107,7 @@ export default function NeuralMesh() {
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
         // Draw node
-        const pulse = Math.sin(timestamp * 1.5 + p.pulseOffset) * 0.5 + 0.5;
+        const pulse = Math.sin(timestamp * 0.6 + p.pulseOffset) * 0.5 + 0.5;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size + (pulse * 0.8), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(45, 212, 191, ${0.3 + pulse * 0.4})`;
@@ -137,7 +137,7 @@ export default function NeuralMesh() {
             const nLen = Math.sqrt(nx * nx + ny * ny);
             
             // Wave frequency and amplitude
-            const waveFreq = 0.8;
+            const waveFreq = 0.3;
             const waveAmp = Math.min(dist * 0.2, 30);
             const waveOffset = Math.sin(timestamp * waveFreq + (i + j) * 0.5) * waveAmp;
             
@@ -154,7 +154,7 @@ export default function NeuralMesh() {
 
             // Energy Pulse along the curve
             if (dist < connectionDistance * 0.7) {
-                const flowProgress = (timestamp * 0.8 + (i * 0.2)) % 1;
+                const flowProgress = (timestamp * 0.3 + (i * 0.2)) % 1;
                 
                 // Quadratic Bezier interpolation for the pulse
                 const invT = 1 - flowProgress;
