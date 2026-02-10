@@ -136,7 +136,7 @@ a:hover {
 .section-title {
     font-size: clamp(2.2rem, 5vw, 3rem);
     font-weight: 800;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     text-align: center;
     letter-spacing: -0.02em;
 }
@@ -173,7 +173,7 @@ a:hover {
     font-weight: 800;
     line-height: 1.05;
     letter-spacing: -0.04em;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     background: linear-gradient(135deg, #fff, var(--accent-purple), var(--accent-teal));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -257,7 +257,7 @@ a:hover {
 }
 
 .product-card h3 {
-    margin: 0 0 16px;
+    margin: 0 0 20px;
     font-size: 1.6rem;
     font-weight: 700;
 }
@@ -359,7 +359,7 @@ a:hover {
 }
 
 .modal-title-area h2 {
-    margin: 0 0 12px;
+    margin: 0 0 20px;
     font-size: 1.8rem;
 }
 
@@ -604,12 +604,12 @@ a:hover {
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     display: block;
 }
 
 .portfolio-card h3 {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     font-size: 1.4rem;
     font-weight: 700;
 }
@@ -634,7 +634,7 @@ a:hover {
 .culture-headline {
     font-size: 2.5rem;
     font-weight: 800;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     line-height: 1.2;
     background: linear-gradient(135deg, #fff, var(--accent-teal));
     -webkit-background-clip: text;
@@ -733,7 +733,7 @@ a:hover {
 
 .contact-item h4 {
     color: var(--accent-teal);
-    margin-bottom: 12px;
+    margin-bottom: 20px;
     font-size: 1.2rem;
     font-weight: 700;
 }
@@ -828,7 +828,7 @@ a:hover {
 .about-card h3 {
     font-size: 2.2rem;
     font-weight: 800;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     color: var(--accent-teal);
 }
 
@@ -856,7 +856,7 @@ a:hover {
 .milestone-item h4 {
     font-size: 1.4rem;
     font-weight: 700;
-    margin: 0 0 12px;
+    margin: 0 0 20px;
 }
 
 .milestone-item p {
