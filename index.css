@@ -145,7 +145,7 @@ a:hover {
     color: var(--text-secondary);
     text-align: center;
     max-width: 600px;
-    margin: 0 auto 60px;
+    margin: 0 auto 40px;
     font-size: clamp(1rem, 2vw, 1.2rem);
     line-height: 1.6;
 }
@@ -502,10 +502,14 @@ a:hover {
     padding-bottom: 100px;
 }
 
+.portfolio-section .section-container {
+    padding-bottom: 0;
+}
+
 .portfolio-track-wrapper {
     width: 100%;
     position: relative;
-    padding: 20px 0;
+    padding: 0;
     overflow-x: auto;
     overflow-y: hidden;
     cursor: grab;
@@ -629,6 +633,7 @@ a:hover {
     gap: 60px;
     padding: 60px;
     border-radius: 40px;
+    margin-top: 20px;
 }
 
 .culture-headline {
@@ -725,6 +730,7 @@ a:hover {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
+    margin-top: 20px;
 }
 
 .contact-item {
