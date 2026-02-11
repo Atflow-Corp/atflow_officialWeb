@@ -502,10 +502,14 @@ a:hover {
     padding-bottom: 100px;
 }
 
+.portfolio-section .section-container {
+    padding-bottom: 0;
+}
+
 .portfolio-track-wrapper {
     width: 100%;
     position: relative;
-    padding: 20px 0;
+    padding: 0;
     overflow-x: auto;
     overflow-y: hidden;
     cursor: grab;
