@@ -626,6 +626,11 @@ a:hover {
     flex: 1;
 }
 
+#careers > .section-title,
+#contact > .section-title {
+    margin-bottom: 60px;
+}
+
 /* Careers Unified Box */
 .career-unified-section {
     display: grid;
