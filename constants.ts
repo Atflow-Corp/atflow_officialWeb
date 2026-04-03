@@ -81,12 +81,11 @@ export const PORTFOLIO_DATA = [
     tags: ["Post-op Care", "Mental Wellness", "Digital Therapeutics"]
   },
   {
-    title: "Telemedicine & NGS Platform",
+    title: "Telemedicine Platform",
     client: "Severance Hospital (Yonsei Univ. Health System)",
-    description: "VBuilding the infrastructure for next-generation medical collaboration. We architected a remote consultation platform and an NGS (Next-Generation Sequencing) genetic test system to resolve unmet medical needs.",
-    tags: ["Telemedicine", "Genetics", "Complex System Design"]
+    description: "Building the infrastructure for next-generation medical collaboration. We architected a remote consultation platform to resolve unmet medical needs.",
+    tags: ["Telemedicine", "Complex System Design"]
   },
-
 ];
 
 export const CAREER_DATA = [
