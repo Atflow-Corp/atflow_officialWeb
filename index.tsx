@@ -309,8 +309,8 @@ function App() {
                         <section className="section-container hero-section">
                             <NeuralMesh />
                             <div className="atflow-hero">
-                                <h1>Technology with a Heartbeat.</h1>
-                                <p>Where human empathy meets AI to create a vibrant life found in positive flow.</p>
+                                <h1>Where Healthcare Flows</h1>
+                                <p>Human empathy meets AI to bring humanity to healthcare.</p>
                                 <button className="design-lab-trigger" onClick={() => switchView('about')}>
                                     <span className="sparkle-icon-wrapper"><SparklesIcon /></span>
                                     Discover atflow
